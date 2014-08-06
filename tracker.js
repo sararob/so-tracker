@@ -1,7 +1,7 @@
-var http = require('http');
+var http = require('https');
 var zlib = require('zlib');
 
-var url = 'http://api.stackexchange.com/2.2/search/advanced?order=desc&sort=activity&tagged=firebase&site=stackoverflow&pagesize=100&client_id=3392&page=';
+var url = 'https://api.stackexchange.com/2.2/search/advanced?order=desc&sort=activity&tagged=firebase&site=stackoverflow&pagesize=100&client_id=3392&page=';
 function getGzipped(page, url, callback) {
     url = url + page;
     // buffer to store the streamed decompression
