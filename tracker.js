@@ -29,16 +29,18 @@ function getGzipped(page, url, callback) {
     });
 }
 
+ 
 var tags = {};
 var query = function(err, data, page) {
   var obj = JSON.parse(data);
   var questions = obj.items;
   console.log(obj.has_more);
-  if (obj.has_more) {
+  if (obj.has_more) { //loop through each page of 100 questions
     getGzipped(page + 1, url, query);
     for (var key in questions) {
       var question = questions[key];
-      for (var tagKey in question.tags) {
+      //Counts the frequency of tags used in combination with the firebase tag
+      for (var tagKey in question.tags) { 
         var tag = question.tags[tagKey];
         if (tags[tag]) {
           tags[tag] += 1;
@@ -47,6 +49,11 @@ var query = function(err, data, page) {
         }
       }
     }
+
+    // // Get data on each question
+    // var questionURL = 'http://api.stackexchange.com/' + question.question_id + '?order=desc&sort=activity&site=stackoverflow';
+    // getGzipped(1, questionURL, some_callback_function);
+
   } else {
     console.log(tags);
   }
