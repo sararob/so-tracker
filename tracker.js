@@ -10,7 +10,7 @@ function getGzipped(page, url, callback) {
     http.get(url, function(res) {
         // pipe the response into the gunzip to decompress
         console.log(res.statusCode);
-        var gunzip = zlib.createGunzip();            
+        var gunzip = zlib.createGunzip();
         res.pipe(gunzip);
 
         gunzip.on('data', function(data) {
@@ -19,7 +19,7 @@ function getGzipped(page, url, callback) {
 
         }).on("end", function() {
             // response and decompression complete, join the buffer and return
-            callback(null, buffer.join(""), page); 
+            callback(null, buffer.join(""), page);
 
         }).on("error", function(e) {
             callback(e);
@@ -29,7 +29,7 @@ function getGzipped(page, url, callback) {
     });
 }
 
- 
+
 var tags = {};
 var query = function(err, data, page) {
   var obj = JSON.parse(data);
@@ -40,7 +40,7 @@ var query = function(err, data, page) {
     for (var key in questions) {
       var question = questions[key];
       //Counts the frequency of tags used in combination with the firebase tag
-      for (var tagKey in question.tags) { 
+      for (var tagKey in question.tags) {
         var tag = question.tags[tagKey];
         if (tags[tag]) {
           tags[tag] += 1;
@@ -59,4 +59,4 @@ var query = function(err, data, page) {
   }
 };
 
-getGzipped(1, url, query);
+//getGzipped(1, url, query);
